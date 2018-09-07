@@ -28,13 +28,13 @@
 				message:'测试文本',
 				searchDataArr:[],
 				keyword:'',
-				pushUrl:'https://sug.so.360.cn/suggest?word=',
+				pushUrl:'',
 			}
 		},
 		methods: {
 			clickSearchHandler: function(){
 				
-				this.$http.jsonp(this.pushUrl + this.keyword + '&encodein=utf-8&encodeout=utf-8').then(function(res) {
+				this.$http.jsonp('https://sug.so.360.cn/suggest?word=' + this.keyword + '&encodein=utf-8&encodeout=utf-8').then(function(res) {
                 	this.searchDataArr = res.data.s;
           	    });
 			},
