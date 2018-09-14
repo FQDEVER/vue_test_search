@@ -13,11 +13,11 @@
 		<div class="dyanmicContent">
 			{{requestData.content}}
 		</div>
-		<!-- 图片组 -->
-		<div v-show="requestData.pictures > 0 ? true : false">
-			<ul>
-				<li v-for="(item,index) in requestData.pictures">
-					<img  src=item>
+		<!-- 图片组 "imgPictures.count > 0 ? true : false"-->
+		<div class="imgPicturesContentClass">
+			<ul class="imgPicturesContentUlClass">
+				<li class="imgPicturesItemClass" v-for="(item,index) in imgPictures">
+					<img src="http://img-user.j-tour.cn/49260878788431872_head">
 				</li>
 			</ul>
 		</div>
@@ -63,6 +63,12 @@
 				searchDataArr:[],
 				keyword:'',
 				pushUrl:'',
+				imgPictures:[
+					"http://img-user.j-tour.cn/49260878788431872_head",
+					"http://img-user.j-tour.cn/49260878788431872_head",
+					"http://img-user.j-tour.cn/49260878788431872_head",
+					"http://img-user.j-tour.cn/49260878788431872_head",
+				],
 				requestData:{
 					collection : 0,
 					isPraise : 0,
@@ -203,10 +209,36 @@
     border: none;
 }
 
+
 .dyanmicContent{
 	color:black;
-	padding:10px 20px;
+	padding:10px 20px 0px 20px;
+}
 
+// 图片组
+.imgPicturesContentClass{
+	width:100%;
+	position:absolute;
+	top:0px;
+}
+
+.imgPicturesContentUlClass{
+	padding-top:0px;
+	padding-right:20px;
+	padding-left:20px;
+}
+
+.imgPicturesItemClass
+{
+	width:32%;
+	height:width;
+	display:inline-block;
+	margin: 2px;
+}
+
+.imgPicturesItemClass img{
+	width:100%;
+	height:100%;
 }
 
 .dynamicActivityClass{
