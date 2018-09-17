@@ -1,8 +1,8 @@
 <template>
 	<div class="detailClass">
-		<dynamicDetail></dynamicDetail>
-		<praise></praise>
-		<comment></comment>
+		<dynamicDetail :detailModel="requestData"></dynamicDetail>
+		<praise :praiseModel="praise"></praise>
+		<comment :commentModel="comment"></comment>
 		<bottomView></bottomView>
 	</div>
 </template>
@@ -13,6 +13,18 @@
 	import comment from './comment'
 	import bottomView from './bottom'
 	export default {
+		created(){
+			
+          	    this.$http.jsonp('https://sug.so.360.cn/suggest?word=' + this.keyword + '&encodein=utf-8&encodeout=utf-8')
+          	    .then(function(res){
+          	    	// alert('成功'+res);
+          	    	// this.pictures = this.requestData.pictures.split(',');
+
+          	    })
+          	    .catch(function(error){
+          	    	// alert('失败'+error);
+          	    });
+		},
 		components :{
 			dynamicDetail,
 			praise,
@@ -21,14 +33,11 @@
 		},
 		data:function(){
 			return {
-				message:'测试文本',
-				searchDataArr:[],
-				keyword:'',
-				pushUrl:'',
 				requestData:{
 					collection : 0,
 					isPraise : 0,
-					momentsActivity : 	{
+					momentsActivity :
+					{
 						speed : 0,
 						mid : 647,
 						placemark : 4,
@@ -54,7 +63,7 @@
 					type : 1,
 					belongsName : "",
 					belongsId : "",
-					pictures : "",
+					pictures : "http://dummyimage.com/160x600,http://dummyimage.com/120x90,http://dummyimage.com/728x90,http://dummyimage.com/180x150,http://dummyimage.com/180x150,http://dummyimage.com/88x31",
 					userName : "测试1013",
 					comment : 1,
 					praise : 1,
@@ -98,75 +107,6 @@
 			}
 		},
 		methods: {
-			clickSearchHandler: function(){
-				alert('响应');
-				// this.$http.jsonp('https://sug.so.360.cn/suggest?word=' + this.keyword + '&encodein=utf-8&encodeout=utf-8').then(function(res) {
-    //             	this.searchDataArr = res.data.s;
-    //       	    });
-          	    this.$http.jsonp('http://test.j-tour.cn/jtour-agw/V2.1.3B04//social/moments/info.mvc?mid=647&userId=127872976912781312')
-          	    .then(function(res){
-          	    	alert('成功'+res);
-          	    })
-          	    .catch(function(error){
-          	    	alert('失败'+error);
-          	    });
-    			//请求详情数据
-        //   	    this.$axios.post(
-								// "http://test.j-tour.cn/jtour-agw/V2.1.3B04//social/moments/info.mvc",
-								// this.$qs.stringify({
-								// 	mid:"647",
-								// 	userId:"127872976912781312"
-								// })
-								// )
-        //   	    .then(response =>{
-        //   	    	alert('请求成功');
-        //   	    	console.log(response.data);
-          	    	
-        //   	    })
-        //   	    .catch(error=>{
-        //   	    	alert('请求失败');
-        //   	    	console.log(error);
-        //   	    });
-        //   	    //请求的是点赞列表
-        //   	    this.$axios.post(
-								// "http://test.j-tour.cn/jtour-agw/V2.1.3B04//social/moments/praise/list.mvc",
-								// this.$qs.stringify({
-								// 	mid:"647",
-								// 	userId:"127872976912781312",
-								// 	loadId:"0"
-								// })
-								// )
-        //   	    .then(response =>{
-        //   	    	alert('点赞请求成功');
-        //   	    	console.log(response.data);
-          	    	
-        //   	    })
-        //   	    .catch(error=>{
-        //   	    	alert('请求失败');
-        //   	    	console.log(error);
-        //   	    });
-        //   	    //请求的是评论列表
-        //   	    this.$axios.post(
-								// "http://test.j-tour.cn/jtour-agw/V2.1.3B04//social/moments/praise/list.mvc",
-								// this.$qs.stringify({
-								// 	mid:"647",
-								// 	userId:"127872976912781312",
-								// 	loadId:"0"
-								// })
-								// )
-        //   	    .then(response =>{
-        //   	    	alert('点赞请求成功');
-        //   	    	console.log(response.data);
-          	    	
-        //   	    })
-        //   	    .catch(error=>{
-        //   	    	alert('请求失败');
-        //   	    	console.log(error);
-        //   	    });
-          	    
-          	    
-          	    
-			},
 			clickClear:function(){
 				this.searchDataArr = []
 				this.keyword = ''

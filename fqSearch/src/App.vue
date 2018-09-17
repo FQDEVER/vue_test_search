@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <panel></panel>
+    <!-- <panel></panel> -->
+    <router-view/>
   </div>
 </template>
 
 
 <script>
-import panel from './components/detail.vue';
+// import panel from './components/detail.vue';
 
 export default {
   name: 'App',
-  components:{
-    panel
-  }
+  // components:{
+  //   panel
+  // }
 }
 </script>
 

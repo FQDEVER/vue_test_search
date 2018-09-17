@@ -1,46 +1,46 @@
 <template>
-	<div class="dynamic" @click="clickDynamicDetail">
+	<div class="dynamic">
 		<!-- 顶部 -->
 		<div class="dynamicTop">
-			<img class="userAvatarClass"  src="http://img-user.j-tour.cn/49260878788431872_head">
+			<img class="userAvatarClass" @click="clickDynamicDetail" :src="detailModel.userAvatar">
 			<div class="userNameClass">
-				<span class="userNmaeItem">{{requestData.userName}}</span>
-				<span class="userNmaeItem">{{requestData.ctime}}</span>
+				<span class="userNmaeItem">{{detailModel.userName}}</span>
+				<span class="userNmaeItem">{{detailModel.ctime}}</span>
 			</div>
-			<button class="userTopFollowClass" @click="clickSearchHandler" >关注</button>
+			<button class="userTopFollowClass" @click="clickDynamicDetail" >关注</button>
 		</div>
 		<!-- 文本 -->
 		<div class="dyanmicContent">
-			{{requestData.content}}
+			{{detailModel.content}}
 		</div>
 		<!-- 图片组 "imgPictures.count > 0 ? true : false"-->
-		<div class="imgPicturesContentClass">
+		<div v-show="pictruesCount" class="imgPicturesContentClass">
 			<ul class="imgPicturesContentUlClass">
-				<li class="imgPicturesItemClass" v-for="(item,index) in imgPictures">
-					<img src="http://img-user.j-tour.cn/49260878788431872_head">
+				<li @click="clickDynamicDetail" class="imgPicturesItemClass" v-for="(item,index) in imgPictures">
+					<img :src="item">
 				</li>
 			</ul>
 		</div>
 		<!-- 添加轨迹分享部分 -->
-		<div class="dynamicActivityClass">
-			<img  src="http://img-track.j-tour.cn/Fv6bHBr7d6_Yni70SQXZv3EyI2aG">
+		<div class="dynamicActivityClass" @click="clickDynamicDetail" v-show="isShowActivity">
+			<img  :src="detailModel.momentsActivity.thumbnail">
 			<div class="dynamicActivityData">
 				<div class="dynamicActivityTop">
 				
-						<a class="dynamicActivityTopFirst">{{requestData.momentsActivity.name}}</a>	
+						<a class="dynamicActivityTopFirst">{{detailModel.momentsActivity.name}}</a>	
 						<div class="dynamicActivityTopSecond">
 							<img src="../assets/ios_dot_icon.png">
-							<a >{{requestData.momentsActivity.placemark}}</a>
+							<a >{{detailModel.momentsActivity.placemark}}</a>
 						</div>
 				</div>
 				<div class="dynamicActivityBot">
 					<div class="dynamicActivityBotFirst">
 						<img src="../assets/ios_speed_icon.png">
-						<span >{{requestData.momentsActivity.distance}}m</span>
+						<span >{{detailModel.momentsActivity.distance}}m</span>
 					</div>
 					<div class="dynamicActivityBotSecond">
 						<img src="../assets/ios_time_icon.png">
-						<span>{{requestData.momentsActivity.actTime}}</span>
+						<span>{{detailModel.momentsActivity.actTime}}</span>
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 		<!-- 地址 -->
 		<div class="dynamicLocation">
 			<img src="../assets/ios_local_icon.png">
-			<span>{{requestData.locateAddr}}</span>
+			<span>{{detailModel.locateAddr}}</span>
 		</div>
 		<div class="dynamicBotViewDetailLine"></div>
 	</div>
@@ -57,99 +57,62 @@
 <script type="text/javascript">
 	
 	export default {
-		data:function(){
-			return {
-				message:'测试文本',
-				searchDataArr:[],
-				keyword:'',
-				pushUrl:'',
-				imgPictures:[
-					"http://img-user.j-tour.cn/49260878788431872_head",
-					"http://img-user.j-tour.cn/49260878788431872_head",
-					"http://img-user.j-tour.cn/49260878788431872_head",
-					"http://img-user.j-tour.cn/49260878788431872_head",
-				],
-				requestData:{
-					collection : 0,
-					isPraise : 0,
-					momentsActivity : 	{
-						speed : 0,
-						mid : 647,
-						placemark : 4,
-						setType : 6,
-						type : 1,
-						refid : 319,
-						actTime : 675,
-						ctime : "",
-						mtime : "",
-						thumbnail : "http://img-track.j-tour.cn/Fv6bHBr7d6_Yni70SQXZv3EyI2aG",
-						distance : 42607,
-						name : "哦问你",
-					},
-					status : 1,
-					userAvatar : "http://img-user.j-tour.cn/49260878788431872_head",
-					isFollow : 1,
-					mid : 647,
-					ctime : "2018-09-07 18:11:49",
-					belongsType : 0,
-					mtime : "2018-09-10 10:09:29",
-					isCollect : 0,
-					locateAddr : "广东省深圳市南山区",
-					type : 1,
-					belongsName : "",
-					belongsId : "",
-					pictures : "",
-					userName : "测试1013",
-					comment : 1,
-					praise : 1,
-					content : "将爹表示支持和鼓励！？你手机号多少……巨额的财产是什么事吗……🏠妮诗生物纤维眼膜都不要了……n",
-					userId : "49260878788431872",
-				},
-				praise:{
-					data:[
-						{
-							userId : "49260878788431872",
-							status : 1,
-							ctime : "2018-09-07 18:12:21",
-							id : 514,
-							mid : 647,
-							mtime : "2018-09-07 18:12:21",
-							userName : "测试1013",
-							userAvatar : "http://img-user.j-tour.cn/49260878788431872_head",
-						}
-					]
-				},
-				comment:{
-					data:[
-						{
-							isPraise : 0,
-							mid : 647,
-							userAvatar : "http://img-user.j-tour.cn/127872976912781312_head",
-							replyUserAvatar : "",
-							cid : 595,
-							comment : "Cghhhh ",
-							userId : "127872976912781312",
-							userName : "Dakedake",
-							replyUserId : "",
-							praise : 0,
-							replyUserName : "",
-							ctime : "2018-09-10 10:09:29",
-							mtime : "2018-09-10 10:09:29",
-							status : 1,
-						}
-					]
-				}
+
+		props:['detailModel'],
+		data :function(){
+			return{
 			}
 		},
 		methods: {
 			
 			clickDynamicDetail:function(){
 				//跳转到下载App
-				alert('跳转到下载App');
+				window.open("https://itunes.apple.com/cn/app/军拓运动/id1121521585?mt=8");
+			}
+		},
+		computed:{
+			imgPictures:function(){
+				var pictruesArr = this.detailModel.pictures.split(',');
+				return pictruesArr;
 			},
+			isShowActivity:function(){
+				var t = typeof  this.detailModel.momentsActivity;
+				if ( t == 'string') {
+					return false;
+				}else if(t == 'object'){
+					return true;
+				}
+				return false;
+			},
+			pictruesCount:function(){
+				var isPictruesCount = mineCount(this.detailModel.pictures) > 0 ? true : false;
+				return isPictruesCount;
+			}
+
 		}
 	}
 
+	function mineCount(o){
+		var t = typeof o;
+
+		if(t == 'string'){
+			return o.length;
+
+		}else if(t == 'object'){
+
+			var n = 0;
+
+			for(var i in o){
+
+				n++;
+
+			}
+
+			return n;
+		}
+			return false;
+
+	}
 </script>
 
 <style type="text/css">
@@ -231,7 +194,8 @@
 .imgPicturesItemClass
 {
 	width:32%;
-	height:width;
+	height:0;
+	padding-bottom: 32%;
 	display:inline-block;
 	margin: 2px;
 }
@@ -239,6 +203,7 @@
 .imgPicturesItemClass img{
 	width:100%;
 	height:100%;
+	background-size:cover;
 }
 
 .dynamicActivityClass{

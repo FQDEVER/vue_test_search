@@ -1,5 +1,5 @@
 <template>
-	<div class="bottomViewClass">
+	<div class="bottomViewClass" @click="clickBottomViewBlock">
 		<div class="topLineClass"></div>
 		<img src="../assets/ios_logo_icon.png">
 		<div class="titleContentClass">
@@ -18,8 +18,9 @@
 			}
 		},
 		methods: {
-			clickCellItemBlock:function(item){
-				alert(item.comment);
+			clickBottomViewBlock:function(item){
+				// 跳转到下载App
+				window.open("https://itunes.apple.com/cn/app/军拓运动/id1121521585?mt=8");
 			}
 		}
 	}
