@@ -151,6 +151,7 @@
 	height: 40px;
 	margin-left:20px;
 	float:left;
+	border-radius: 20px;
 }
 
 .after-commentAvatarClass{

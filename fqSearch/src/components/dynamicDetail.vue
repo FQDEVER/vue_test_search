@@ -17,7 +17,7 @@
 		<div v-show="pictruesCount" class="imgPicturesContentClass">
 			<ul class="imgPicturesContentUlClass">
 				<li @click="clickDynamicDetail" class="imgPicturesItemClass" v-for="(item,index) in imgPictures">
-					<img :src="item">
+					<div class="imgPicturesItemBackImg" :style="{backgroundImage:`url(${item})`}"></div>
 				</li>
 			</ul>
 		</div>
@@ -36,11 +36,11 @@
 				<div class="dynamicActivityBot">
 					<div class="dynamicActivityBotFirst">
 						<img src="../assets/ios_speed_icon.png">
-						<span >{{detailModel.momentsActivity.distance}}m</span>
+						<span >{{distance}}</span>
 					</div>
 					<div class="dynamicActivityBotSecond">
 						<img src="../assets/ios_time_icon.png">
-						<span>{{detailModel.momentsActivity.actTime}}</span>
+						<span>{{time}}</span>
 					</div>
 				</div>
 			</div>
@@ -87,11 +87,27 @@
 			pictruesCount:function(){
 				var isPictruesCount = mineCount(this.detailModel.pictures) > 0 ? true : false;
 				return isPictruesCount;
+			},
+			distance:function(){
+				
+				var theDistance = this.detailModel.momentsActivity.distance;
+				return theDistance > 100000 ? ((Math.round((theDistance/100000.0) * 10) / 10).toString() + 'km') : ((Math.round((theDistance/100.0) * 10) / 10).toString() + 'm');
+			},
+			time:function(){
+				var time = this.detailModel.momentsActivity.actTime;
+				return formartDate(time);
 			}
+
 
 		}
 	}
-
+	function formartDate(param) {
+		
+	    var h = (Math.round(param / 3600)).toString();
+	    var m = (Math.round((param % 3600)/60)).toString();
+	    var s = (Math.round(param % 60)).toString();
+	    return h +':'+ m +':'+ s;
+	};
 	function mineCount(o){
 		var t = typeof o;
 
@@ -112,7 +128,7 @@
 		}
 			return false;
 
-	}
+	};
 </script>
 
 <style type="text/css">
@@ -138,6 +154,7 @@
 .userAvatarClass{
 	width : 50px;
 	height: 50px;
+	border-radius: 25px;
 	float:left;
 	display:block;
 }
@@ -197,14 +214,24 @@
 	height:0;
 	padding-bottom: 32%;
 	display:inline-block;
-	margin: 2px;
+	margin: 1px;
 }
 
-.imgPicturesItemClass img{
+.imgPicturesItemBackImg{
+      background-color:red;
+      background-size:cover;
+      width: 100%;
+	  height:0;
+	  padding-bottom: 100%;
+      overflow:hidden;
+      border-radius: 3px;
+   }
+
+/* .imgPicturesItemClass img{
 	width:100%;
 	height:100%;
 	background-size:cover;
-}
+} */
 
 .dynamicActivityClass{
 	background-color:#eeeeee;
